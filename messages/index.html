@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#103a32" />
+    <title>Автоматические СМС — Донуля</title>
+    <meta name="description" content="Библиотека автоматических СМС для воронки продаж Донуля." />
+    <style>
+      :root {
+        --m-ink:#16261f; --m-muted:#65736d; --m-paper:#f5f2e9; --m-card:#fffdf8;
+        --m-line:#dce4dc; --m-pine:#103a32; --m-green:#176b55; --m-green-soft:#e8f4ed;
+        --m-gold:#aa7415; --m-gold-soft:#fff3d6; --m-red:#b44a45; --m-red-soft:#fff0ee;
+        --m-shadow:0 18px 45px rgba(14,52,43,.11);
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{margin:0;background:radial-gradient(1000px 480px at 100% 0,#e9e1d0 0,transparent 65%),var(--m-paper);color:var(--m-ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .wrap{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:24px 0 74px}
+      .hero{padding:33px;border-radius:27px;background:linear-gradient(135deg,#0c332b,#175a46);color:#fff;box-shadow:var(--m-shadow)}
+      .back{display:inline-flex;align-items:center;gap:8px;color:#ffe4a4;font-size:14px;font-weight:800;text-decoration:none}.back:hover{text-decoration:underline}
+      .eyebrow{display:inline-flex;margin-top:20px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.12);color:#ffe4a4;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+      h1{margin:10px 0 8px;font-size:clamp(31px,5vw,50px);line-height:1.04;letter-spacing:-.035em}.hero p{max-width:720px;margin:0;color:rgba(255,255,255,.82);font-size:18px}
+      .rules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.rule{padding:12px 14px;border:1px solid rgba(255,255,255,.17);border-radius:14px;background:rgba(255,255,255,.08);font-size:13px;line-height:1.4}.rule b{display:block;margin-bottom:3px;color:#ffe4a4}
+      .toolbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0;padding:10px;border:1px solid var(--m-line);border-radius:16px;background:rgba(255,253,248,.94);box-shadow:0 8px 28px rgba(16,58,50,.07);backdrop-filter:blur(14px)}
+      .toolbar span{padding:0 5px;color:var(--m-muted);font-size:13px;font-weight:800}.filter{border:1px solid var(--m-line);border-radius:999px;padding:8px 12px;background:#fff;color:#45534d;font:inherit;font-size:14px;font-weight:800;cursor:pointer}.filter:hover,.filter[aria-pressed="true"]{border-color:var(--m-green);background:var(--m-green);color:#fff}
+      .layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px}.side{position:sticky;top:76px;align-self:start;padding:16px;border:1px solid var(--m-line);border-radius:18px;background:rgba(255,253,248,.85)}.side b{display:block;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--m-muted)}.side a{display:block;padding:8px 9px;border-radius:9px;color:var(--m-pine);text-decoration:none;font-size:14px;font-weight:800}.side a:hover{background:var(--m-green-soft);color:var(--m-green)}
+      .section{margin-bottom:18px;padding:24px;border:1px solid var(--m-line);border-radius:22px;background:rgba(255,253,248,.94);box-shadow:0 7px 20px rgba(16,58,50,.04)}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:18px}.section h2{margin:0;font-size:27px;line-height:1.1;letter-spacing:-.025em}.section-head p{margin:5px 0 0;color:var(--m-muted);font-size:14px}.count{flex:none;padding:5px 9px;border-radius:999px;background:var(--m-green-soft);color:var(--m-green);font-size:13px;font-weight:900}
+      .cards{display:grid;gap:11px}.message{border:1px solid var(--m-line);border-radius:16px;overflow:hidden;background:#fff}.message[hidden]{display:none}.message-top{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid var(--m-line);background:#fbfcfa}.id{display:grid;place-items:center;flex:none;width:36px;height:27px;border-radius:8px;background:var(--m-green-soft);color:var(--m-green);font-size:12px;font-weight:900}.message-top h3{flex:1;margin:0;font-size:16px;line-height:1.25}.stage{padding:4px 8px;border-radius:999px;background:var(--m-gold-soft);color:var(--m-gold);font-size:11px;font-weight:900;white-space:nowrap}.message-body{display:grid;grid-template-columns:1fr 1.45fr;gap:12px;padding:14px}.meta{display:grid;gap:8px}.meta div{padding:9px 10px;border-radius:10px;background:#f4f7f4;color:var(--m-muted);font-size:13px;line-height:1.35}.meta b{display:block;margin-bottom:2px;color:var(--m-green);font-size:10px;letter-spacing:.06em;text-transform:uppercase}.sms{position:relative;padding:14px 48px 14px 15px;border-radius:12px;background:#f7f5ef;color:#2e3e37;font-size:15px;line-height:1.5}.copy{position:absolute;right:8px;bottom:8px;padding:6px 8px;border:1px solid #d4ddd6;border-radius:8px;background:#fff;color:#426257;font:inherit;font-size:12px;font-weight:800;cursor:pointer}.copy:hover{background:var(--m-green);border-color:var(--m-green);color:#fff}.note{margin-top:12px;padding:13px 15px;border-left:4px solid var(--m-gold);border-radius:12px;background:var(--m-gold-soft);font-size:14px}.note b{color:var(--m-gold)}.not-auto{border-left-color:var(--m-red);background:var(--m-red-soft)}.not-auto b{color:var(--m-red)}
+      footer{padding:20px;color:var(--m-muted);font-size:13px;text-align:center}
+      @media(max-width:840px){.layout{grid-template-columns:1fr}.side{display:none}.rules{grid-template-columns:1fr}.message-body{grid-template-columns:1fr}.wrap{width:min(100% - 20px,1180px)}.hero,.section{padding:21px}.stage{display:none}}
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="hero">
+        <a class="back" href="../">← Вернуться к ТЗ для Артура и Вити</a>
+        <div class="eyebrow">Библиотека сообщений · версия 1</div>
+        <h1>Автоматические СМС</h1>
+        <p>Короткие одинаковые сообщения, которые подтверждают договорённость, помогают клиенту пройти действие и не дают сделке потеряться.</p>
+        <div class="rules">
+          <div class="rule"><b>Не заменяют менеджера</b>Автоматическое сообщение не считается касанием и не закрывает задачу.</div>
+          <div class="rule"><b>Не спамим</b>Одно сообщение на событие. Ответ, подпись, оплата или смена этапа отменяют отложенные СМС.</div>
+          <div class="rule"><b>Только реальный факт</b>Не пишем о действиях, которых ещё не было, и не обещаем юридический результат.</div>
+        </div>
+      </header>
+
+      <div class="toolbar" aria-label="Фильтры сообщений">
+        <span>Показать:</span>
+        <button class="filter" data-filter="all" aria-pressed="true">Все сообщения</button>
+        <button class="filter" data-filter="new">Новый / НДЗ</button>
+        <button class="filter" data-filter="decision">Принимает решение</button>
+        <button class="filter" data-filter="payment">Подпись и оплата</button>
+        <button class="filter" data-filter="service">Передача / пул</button>
+      </div>
+
+      <div class="layout">
+        <aside class="side">
+          <b>Этапы</b>
+          <a href="#new">Новый и НДЗ</a>
+          <a href="#consent">Согласие</a>
+          <a href="#decision">Принимает решение</a>
+          <a href="#signed">Договор подписан</a>
+          <a href="#partial">Оплата 1 000 ₽</a>
+          <a href="#paid">Полная оплата</a>
+          <a href="#pool">Тёплый пул</a>
+          <a href="#no-ai">Не автоматизировать</a>
+        </aside>
+
+        <div>
+          <section class="section" id="new">
+            <div class="section-head"><div><h2>Новый лид и недозвон</h2><p>Помогаем начать диалог, но не подменяем первый звонок сообщением.</p></div><span class="count">2 СМС</span></div>
+            <div class="cards">
+              <article class="message" data-group="new"><div class="message-top"><span class="id">A1</span><h3>После первого недозвона</h3><span class="stage">Новый</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Менеджер сделал первый звонок, клиент не ответил.</div><div><b>Когда</b>Сразу после результата звонка.</div><div><b>Стоп</b>Клиент ответил или назначен звонок на точное время.</div></div><div class="sms">[Имя], здравствуйте! Это [Менеджер], компания «Донуля». Пыталась связаться по вашей заявке. Когда будет удобно коротко созвониться?<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="new"><div class="message-top"><span class="id">A2</span><h3>После трёх недозвонов</h3><span class="stage">НДЗ</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>В НДЗ зафиксированы 3 звонка, разговора не было.</div><div><b>Когда</b>После третьей попытки.</div><div><b>Стоп</b>Клиент ответил; лид закрыт; назначен звонок.</div></div><div class="sms">[Имя], пока не удалось до вас дозвониться. Если вопрос с долгами ещё актуален, ответьте удобным временем — свяжемся и спокойно всё разберём.<button class="copy" type="button">Копировать</button></div></div></article>
+            </div>
+          </section>
+
+          <section class="section" id="consent">
+            <div class="section-head"><div><h2>Согласие на процедуру</h2><p>МОС отправляет согласие на второй день после знакомства.</p></div><span class="count">2 СМС</span></div>
+            <div class="cards">
+              <article class="message" data-group="new"><div class="message-top"><span class="id">A3</span><h3>Согласие направлено</h3><span class="stage">МОС</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>МОС отправил документ «Согласие на процедуру».</div><div><b>Когда</b>Сразу вместе со ссылкой.</div><div><b>Стоп</b>Документ подписан.</div></div><div class="sms">[Имя], направили вам согласие на процедуру: [ссылка]. Пожалуйста, откройте и подпишите, чтобы мы могли продолжить работу по вашему обращению.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="new"><div class="message-top"><span class="id">A4</span><h3>Нет подписи 4 часа</h3><span class="stage">Срочно</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Прошло 4 часа, подписи нет. Одновременно ставится задача МПП.</div><div><b>Когда</b>Через 4 часа после отправки.</div><div><b>Стоп</b>Документ подписан или клиент ответил.</div></div><div class="sms">[Имя], напомню про согласие на процедуру: [ссылка]. Если на каком-то шаге возник вопрос, напишите сюда — менеджер поможет.<button class="copy" type="button">Копировать</button></div></div></article>
+            </div>
+          </section>
+
+          <section class="section" id="decision">
+            <div class="section-head"><div><h2>Принимает решение · 72 часа</h2><p>Здесь автомат подтверждает маршрут и договорённости. Дожимный разговор остаётся за менеджером.</p></div><span class="count">7 СМС</span></div>
+            <div class="cards">
+              <article class="message" data-group="decision"><div class="message-top"><span class="id">A5</span><h3>Выдан обычный договор</h3><span class="stage">Д0</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>В Обнуляторе нажато «Подписать договор».</div><div><b>Когда</b>Сразу после действия менеджера.</div><div><b>Стоп</b>Договор подписан; маршрут изменён; клиент ответил.</div></div><div class="sms">[Имя], отправляю договор и условия, о которых мы поговорили: [ссылка]. Посмотрите, пожалуйста, в удобное время. По вопросам можно ответить прямо на это сообщение.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="decision"><div class="message-top"><span class="id">A6</span><h3>Выдана оферта с оплатой</h3><span class="stage">Д0</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>В Обнуляторе нажато «Оплатить сейчас».</div><div><b>Когда</b>Сразу после действия менеджера.</div><div><b>Стоп</b>Оплата поступила; выдан обычный договор; клиент ответил.</div></div><div class="sms">[Имя], направляю страницу с условиями и оплатой: [ссылка]. Если при оплате что-то будет непонятно, напишите сюда — поможем пройти шаг за шагом.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="decision"><div class="message-top"><span class="id">A7</span><h3>Открыта страница, действия нет</h3><span class="stage">Срочно</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Клиент открыл договор / оферту, но не подписал и не оплатил.</div><div><b>Когда</b>Через 30 минут для договора; через 1 минуту для оферты/оплаты.</div><div><b>Стоп</b>Подписал, оплатил или состоялось касание менеджера.</div></div><div class="sms">[Имя], если при оформлении возникла сложность, не переживайте — напишите сюда или ответьте «помощь». Менеджер сразу подключится.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="decision"><div class="message-top"><span class="id">A8</span><h3>Подтверждение согласованного звонка</h3><span class="stage">Д0–Д2</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Менеджер указал точные дату и время следующего созвона.</div><div><b>Когда</b>Сразу после сохранения договорённости.</div><div><b>Стоп</b>Звонок состоялся; время изменено; сделка сменила этап.</div></div><div class="sms">[Имя], подтверждаю: сегодня в [время] созвонимся и разберём оставшиеся вопросы. Я буду на связи.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="decision"><div class="message-top"><span class="id">A9</span><h3>Напоминание о юридическом разборе</h3><span class="stage">Д1</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Создана задача «Презентовать юридическое заключение» с точным временем.</div><div><b>Когда</b>За 30 минут до звонка.</div><div><b>Стоп</b>Звонок состоялся или перенесён.</div></div><div class="sms">[Имя], через 30 минут созвонимся и разберём предварительное заключение по вашей ситуации. Подготовьте, пожалуйста, вопросы, которые остались.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="decision"><div class="message-top"><span class="id">A10</span><h3>Согласованная скидка</h3><span class="stage">Д2</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Менеджер включил одобренную скидку и зафиксировал реальный дедлайн.</div><div><b>Когда</b>Сразу после решения менеджера.</div><div><b>Стоп</b>Дедлайн истёк; клиент подписал/оплатил; скидка отменена.</div></div><div class="sms">[Имя], для вас действуют согласованные условия до [дата, время]. Ссылка остаётся здесь: [ссылка]. Если есть вопрос, который мешает принять решение, напишите его одним сообщением.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="decision"><div class="message-top"><span class="id">A11</span><h3>Д3 — получить ответ</h3><span class="stage">Д3</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Третий день в статусе, подписи и оплаты нет.</div><div><b>Когда</b>После задачи менеджера получить прямой ответ.</div><div><b>Стоп</b>Получен ответ; сделка ушла в тёплый пул; подписал/оплатил.</div></div><div class="sms">[Имя], чтобы правильно спланировать дальнейшие действия, нужен короткий ответ: готовы двигаться, остался вопрос или пока неактуально? Любой вариант можно написать прямо сюда.<button class="copy" type="button">Копировать</button></div></div></article>
+            </div>
+          </section>
+
+          <section class="section" id="signed">
+            <div class="section-head"><div><h2>Договор подписан</h2><p>Клиент сделал важный юридический шаг. Наша задача — подтвердить и удержать договорённость по оплате.</p></div><span class="count">4 СМС</span></div>
+            <div class="cards">
+              <article class="message" data-group="payment"><div class="message-top"><span class="id">A12</span><h3>Подпись подтверждена</h3><span class="stage">Подписан</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Пришла подпись договора кодом по СМС.</div><div><b>Когда</b>Сразу после вебхука подписи.</div><div><b>Стоп</b>Клиент назвал дату оплаты или оплатил.</div></div><div class="sms">[Имя], договор подписан, спасибо. Следующий шаг — зафиксировать дату первого платежа. Напишите, пожалуйста, когда вам удобно его внести.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="payment"><div class="message-top"><span class="id">A13</span><h3>Дата оплаты зафиксирована</h3><span class="stage">Подписан</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Менеджер заполнил дату и время обещанной оплаты.</div><div><b>Когда</b>Сразу после сохранения.</div><div><b>Стоп</b>Оплата поступила; дата изменена; клиент отказался.</div></div><div class="sms">[Имя], зафиксировали оплату на [дата] в [время]. Накануне напомним и будем на связи, если понадобится помощь.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="payment"><div class="message-top"><span class="id">A14</span><h3>За день до оплаты</h3><span class="stage">Подписан</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>До даты оплаты остались сутки.</div><div><b>Когда</b>За 1 день в согласованное рабочее время.</div><div><b>Стоп</b>Платёж поступил или дата изменена.</div></div><div class="sms">[Имя], напоминаю про нашу договорённость по оплате на завтра. Если время изменилось, пожалуйста, напишите заранее — зафиксируем новую дату.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="payment"><div class="message-top"><span class="id">A15</span><h3>Срок оплаты сорван</h3><span class="stage">Срочно</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Прошло обещанное время, оплаты нет.</div><div><b>Когда</b>Через 30 минут после даты/времени. Одновременно — срочная задача МПП.</div><div><b>Стоп</b>Оплата; новая точная дата; отказ.</div></div><div class="sms">[Имя], вижу, что оплата пока не поступила. Подскажите, пожалуйста, что изменилось: нужна помощь с оплатой или перенесём на конкретную дату?<button class="copy" type="button">Копировать</button></div></div></article>
+            </div>
+          </section>
+
+          <section class="section" id="partial">
+            <div class="section-head"><div><h2>Оплачено 1 000 ₽</h2><p>Частичная оплата закрепляет намерение, но полноценная работа начинается после первого полного платежа.</p></div><span class="count">2 СМС</span></div>
+            <div class="cards">
+              <article class="message" data-group="payment"><div class="message-top"><span class="id">A16</span><h3>Частичная оплата получена</h3><span class="stage">1 000 ₽</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Получена частичная оплата от 1 000 ₽.</div><div><b>Когда</b>Сразу после подтверждения оплаты.</div><div><b>Стоп</b>Внесён полный первый платёж или назначена дата добора.</div></div><div class="sms">[Имя], получили оплату [сумма] ₽, она полностью засчитывается в стоимость договора. Чтобы перейти к полноценной работе по вашему случаю, нужно добрать первый платёж до 13 500 ₽. На какую дату зафиксируем остаток?<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="payment"><div class="message-top"><span class="id">A17</span><h3>Напоминание о доплате</h3><span class="stage">1 000 ₽</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>За сутки до согласованной даты добора.</div><div><b>Когда</b>За 1 день в рабочее время.</div><div><b>Стоп</b>Полный платёж; дата изменена; клиент ответил.</div></div><div class="sms">[Имя], напоминаю про доплату до первого платежа на [дата]. Если планы изменились, напишите заранее — зафиксируем новую дату.<button class="copy" type="button">Копировать</button></div></div></article>
+            </div>
+          </section>
+
+          <section class="section" id="paid">
+            <div class="section-head"><div><h2>Полная оплата и передача</h2><p>Только фактически полученные деньги запускают передачу в отдел сопровождения.</p></div><span class="count">2 СМС</span></div>
+            <div class="cards">
+              <article class="message" data-group="service"><div class="message-top"><span class="id">A18</span><h3>Первый полный платёж получен</h3><span class="stage">13 500 ₽</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Поступил первый полный платёж от 13 500 ₽.</div><div><b>Когда</b>Сразу после подтверждения оплаты.</div><div><b>Стоп</b>Не требуется — это подтверждение факта.</div></div><div class="sms">[Имя], получили первый полный платёж, спасибо. Передаём вашу анкету и документы в отдел сопровождения. Специалист свяжется с вами в течение 24 часов.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="service"><div class="message-top"><span class="id">A19</span><h3>Передача подтверждена</h3><span class="stage">ОС</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>В amoCRM отмечена передача в отдел сопровождения.</div><div><b>Когда</b>Сразу после подтверждения передачи.</div><div><b>Стоп</b>Не требуется — это подтверждение факта.</div></div><div class="sms">[Имя], передача в отдел сопровождения подтверждена. В ближайшее время с вами свяжется специалист и расскажет дальнейший порядок работы.<button class="copy" type="button">Копировать</button></div></div></article>
+            </div>
+          </section>
+
+          <section class="section" id="pool">
+            <div class="section-head"><div><h2>Тёплый пул и входящий звонок</h2><p>Система помогает сохранить контакт, когда сделка переходит другому исполнителю или клиент сам возвращается.</p></div><span class="count">2 СМС</span></div>
+            <div class="cards">
+              <article class="message" data-group="service"><div class="message-top"><span class="id">A20</span><h3>Пропущенный звонок клиента</h3><span class="stage">Срочно</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>В PBX зафиксирован пропущенный входящий звонок от клиента.</div><div><b>Когда</b>Сразу. Одновременно — срочная задача «Перезвонить».</div><div><b>Стоп</b>Подтверждённое касание менеджера.</div></div><div class="sms">[Имя], вижу ваш звонок. Освобожусь и перезвоню вам в ближайшее время.<button class="copy" type="button">Копировать</button></div></div></article>
+              <article class="message" data-group="service"><div class="message-top"><span class="id">A21</span><h3>Лид передан новому человеку</h3><span class="stage">Тёплый пул</span></div><div class="message-body"><div class="meta"><div><b>Триггер</b>Лид из тёплого пула назначен новому стажёру/менеджеру.</div><div><b>Когда</b>После смены ответственного и до его звонка.</div><div><b>Стоп</b>Звонок состоялся; лид подписан/оплачен; следующий переход.</div></div><div class="sms">[Имя], здравствуйте! Меня зовут [Новый менеджер], я подключилась по вашему обращению. Чтобы вам не пришлось повторять всё заново, изучу историю и свяжусь с вами сегодня в [время].<button class="copy" type="button">Копировать</button></div></div></article>
+            </div>
+          </section>
+
+          <section class="section" id="no-ai">
+            <div class="section-head"><div><h2>Пока не отправляем автоматически</h2><p>Эти сообщения требуют понимания смысла разговора. Без ИИ или решения менеджера система будет ошибаться.</p></div><span class="count">Стоп-лист</span></div>
+            <div class="note not-auto"><b>Не автоматизировать:</b> «клиент готов оплатить», «клиента переманивает конкурент», «риск срыва», «риск неоплаты» по тексту переписки, а также персональный разбор юридического заключения. Пока система видит только факты: событие оплаты, подпись, открытие страницы, дату договорённости, звонок и входящее сообщение.</div>
+          </section>
+        </div>
+      </div>
+      <footer>Автоматические сообщения не являются заменой консультации. Юридические формулировки и правила рассылок согласуются с юристом компании до запуска.</footer>
+    </main>
+    <script>
+      const filters = document.querySelectorAll('.filter');
+      const messages = document.querySelectorAll('.message');
+      filters.forEach((button) => button.addEventListener('click', () => {
+        const group = button.dataset.filter;
+        filters.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        messages.forEach((message) => { message.hidden = group !== 'all' && message.dataset.group !== group; });
+      }));
+      document.querySelectorAll('.copy').forEach((button) => button.addEventListener('click', async () => {
+        const text = button.parentElement.childNodes[0].textContent.trim();
+        try { await navigator.clipboard.writeText(text); button.textContent = 'Скопировано'; setTimeout(() => { button.textContent = 'Копировать'; }, 1400); }
+        catch { button.textContent = 'Выделите текст'; }
+      }));
+    </script>
+  </body>
+</html>
