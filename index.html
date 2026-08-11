@@ -3,257 +3,248 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ТЗ для Артура и Вити</title>
-    <meta
-      name="description"
-      content="Публичная страница с двумя версиями ТЗ: для Артура и для Вити."
-    />
+    <meta name="theme-color" content="#103a32" />
+    <title>ТЗ для Артура и Вити — продажи Донуля</title>
+    <meta name="description" content="Публичное ТЗ: логика воронки и виджет менеджера amoCRM." />
     <style>
       :root {
-        color-scheme: light;
-        --bg: #f5f7fb;
-        --card: rgba(255, 255, 255, 0.92);
-        --border: #e2e8f0;
-        --text: #243041;
-        --muted: #607086;
-        --blue: #2f5bd3;
-        --green: #0f7a57;
-        --shadow: 0 24px 70px rgba(24, 39, 75, 0.08);
+        --ink: #17261f;
+        --muted: #60706a;
+        --paper: #f6f3eb;
+        --card: #fffdf8;
+        --line: #dfe5df;
+        --green: #176b55;
+        --pine: #103a32;
+        --gold: #bf861e;
+        --gold-bg: #fff2ce;
+        --red: #b94742;
+        --red-bg: #fff0ee;
+        --yellow: #986a11;
+        --yellow-bg: #fff6dc;
+        --shadow: 0 18px 44px rgba(16, 58, 50, .12);
       }
-
-      * {
-        box-sizing: border-box;
-      }
-
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         margin: 0;
-        font-family:
-          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
-        background:
-          radial-gradient(circle at top, #ffffff 0%, var(--bg) 45%, #edf1f7 100%);
-        color: var(--text);
+        color: var(--ink);
+        background: radial-gradient(1000px 500px at 100% 0, #ebe4d4 0, transparent 65%), var(--paper);
+        font: 16px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
-
-      .wrap {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 32px 18px;
-      }
-
-      .shell {
-        width: min(980px, 100%);
-        background: var(--card);
-        border: 1px solid rgba(226, 232, 240, 0.95);
-        border-radius: 28px;
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(10px);
+      .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; padding: 24px 0 70px; }
+      .hero {
         padding: 34px;
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 14px;
-        border-radius: 999px;
-        background: #eef4ff;
-        color: var(--blue);
-        font-size: 14px;
-        font-weight: 800;
-        letter-spacing: 0.01em;
-      }
-
-      h1 {
-        margin: 18px 0 10px;
-        font-size: clamp(30px, 4vw, 44px);
-        line-height: 1.05;
-        letter-spacing: -0.03em;
-      }
-
-      .lead {
-        margin: 0;
-        max-width: 820px;
-        font-size: 18px;
-        line-height: 1.55;
-        color: var(--muted);
-      }
-
-      .grid {
-        margin-top: 26px;
-        display: grid;
-        gap: 18px;
-        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      }
-
-      .card {
-        border: 1px solid var(--border);
-        border-radius: 22px;
-        background: #fbfcfe;
-        padding: 22px;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        padding: 7px 12px;
-        border-radius: 999px;
-        font-size: 13px;
-        font-weight: 800;
-        margin-bottom: 14px;
-      }
-
-      .pill.blue {
-        background: #eef4ff;
-        color: var(--blue);
-      }
-
-      .pill.green {
-        background: #eefaf4;
-        color: var(--green);
-      }
-
-      .card h2 {
-        margin: 0 0 10px;
-        font-size: 24px;
-        line-height: 1.15;
-      }
-
-      .card p {
-        margin: 0 0 18px;
-        color: var(--muted);
-        line-height: 1.55;
-      }
-
-      .list {
-        margin: 0 0 18px;
-        padding-left: 18px;
-        color: var(--text);
-        line-height: 1.55;
-      }
-
-      .list li + li {
-        margin-top: 8px;
-      }
-
-      .btnrow {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      a.btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 13px 18px;
-        border-radius: 14px;
-        text-decoration: none;
-        font-weight: 800;
-        transition:
-          transform 0.15s ease,
-          box-shadow 0.15s ease,
-          background 0.15s ease;
-      }
-
-      a.btn:hover {
-        transform: translateY(-1px);
-      }
-
-      a.primary {
-        background: #16324f;
         color: #fff;
-        box-shadow: 0 12px 24px rgba(22, 50, 79, 0.16);
+        border-radius: 26px;
+        background: linear-gradient(135deg, #0b332b, #165442 60%, #1a684f);
+        box-shadow: var(--shadow);
       }
-
-      a.secondary {
-        background: #f3f5fa;
-        color: #27415e;
-        border: 1px solid #e0e6f0;
-      }
-
-      .footer {
-        margin-top: 24px;
-        padding: 16px;
-        border-radius: 16px;
-        background: #f3f5fa;
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .footer strong {
-        color: var(--text);
-      }
-
-      @media (max-width: 640px) {
-        .shell {
-          padding: 24px 18px;
-          border-radius: 22px;
-        }
-      }
+      .eyebrow, .tag { display: inline-flex; align-items: center; gap: 7px; border-radius: 999px; font-weight: 800; font-size: 12px; letter-spacing: .04em; }
+      .eyebrow { padding: 7px 11px; background: rgba(255,255,255,.13); color: #ffe3a1; text-transform: uppercase; }
+      h1 { margin: 13px 0 10px; max-width: 800px; font-size: clamp(32px, 5vw, 52px); line-height: 1.04; letter-spacing: -.035em; }
+      .hero p { margin: 0; max-width: 800px; color: rgba(255,255,255,.84); font-size: 18px; }
+      .notice { margin-top: 18px; display: inline-block; padding: 9px 12px; border: 1px solid rgba(255,227,161,.4); color: #ffe3a1; border-radius: 12px; font-weight: 700; font-size: 14px; }
+      nav { position: sticky; top: 0; z-index: 3; margin: 18px 0; padding: 9px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,253,248,.92); backdrop-filter: blur(12px); box-shadow: 0 8px 25px rgba(16,58,50,.08); }
+      nav a { display: inline-flex; padding: 8px 12px; color: var(--pine); text-decoration: none; font-weight: 800; border-radius: 10px; }
+      nav a:hover { background: #edf4ef; }
+      .intro, section { border: 1px solid var(--line); background: rgba(255,253,248,.94); border-radius: 22px; box-shadow: 0 7px 20px rgba(16,58,50,.04); }
+      .intro { padding: 24px; }
+      .intro strong { color: var(--green); }
+      section { margin-top: 18px; padding: 28px; }
+      h2 { margin: 0 0 5px; font-size: 29px; line-height: 1.12; letter-spacing: -.025em; }
+      h3 { margin: 0 0 7px; font-size: 18px; line-height: 1.25; }
+      .sub { margin: 0 0 22px; color: var(--muted); }
+      .tag { padding: 5px 9px; color: var(--green); background: #e7f3ec; }
+      .tag.artur { color: #365da0; background: #edf3ff; }
+      .tag.vitya { color: #8a6314; background: var(--gold-bg); }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+      .card p { margin: 7px 0 0; color: var(--muted); }
+      .card ul, .list { margin: 9px 0 0; padding-left: 19px; }
+      .card li + li, .list li + li { margin-top: 5px; }
+      .flow { display: grid; grid-template-columns: repeat(6, minmax(145px, 1fr)); gap: 10px; overflow-x: auto; padding: 4px 1px 8px; }
+      .step { min-width: 145px; padding: 14px; border-radius: 16px; background: #fff; border: 1px solid var(--line); position: relative; }
+      .step:not(:last-child)::after { content: "→"; position: absolute; right: -17px; top: 44%; z-index: 1; color: var(--gold); font-weight: 900; font-size: 20px; }
+      .step b { display: block; font-size: 15px; line-height: 1.2; }
+      .step small { display: block; margin-top: 7px; color: var(--muted); line-height: 1.35; }
+      .n { display: grid; place-items: center; width: 25px; height: 25px; margin-bottom: 8px; border-radius: 8px; background: #e7f3ec; color: var(--green); font-size: 13px; font-weight: 900; }
+      .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; }
+      table { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 14px; }
+      th { padding: 12px 14px; text-align: left; background: #edf4ef; color: #376055; font-size: 12px; letter-spacing: .045em; text-transform: uppercase; }
+      td { padding: 14px; vertical-align: top; border-top: 1px solid var(--line); }
+      td:first-child { font-weight: 800; color: var(--pine); min-width: 160px; }
+      .rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+      .rule { padding: 15px; border-radius: 15px; border: 1px solid var(--line); background: #fff; }
+      .rule b { display: block; margin-bottom: 5px; }
+      .red { background: var(--red-bg); border-color: #f5c6c2; }
+      .red b { color: var(--red); }
+      .yellow { background: var(--yellow-bg); border-color: #efd27f; }
+      .yellow b { color: var(--yellow); }
+      .green { background: #e9f6ee; border-color: #bae0c8; }
+      .green b { color: var(--green); }
+      .callout { margin-top: 16px; padding: 15px 17px; border-left: 4px solid var(--gold); border-radius: 12px; background: #fff9e9; }
+      .mini { color: var(--muted); font-size: 14px; }
+      details { border-top: 1px solid var(--line); }
+      details:first-of-type { border-top: 0; }
+      summary { cursor: pointer; padding: 15px 0; font-weight: 800; color: var(--pine); }
+      details p { margin: 0 0 16px; color: var(--muted); }
+      .footer { margin-top: 18px; padding: 18px; text-align: center; color: var(--muted); font-size: 14px; }
+      @media (max-width: 760px) { .hero, section { padding: 21px; } .grid, .rules { grid-template-columns: 1fr; } .wrap { width: min(100% - 20px, 1160px); } nav { overflow-x: auto; white-space: nowrap; } }
     </style>
   </head>
   <body>
     <main class="wrap">
-      <section class="shell">
-        <div class="badge">ТЗ для Артура и Вити</div>
-        <h1>Одна публичная страница, которая открывается с любого устройства</h1>
-        <p class="lead">
-          Здесь собраны две рабочие версии: отдельное ТЗ для логики воронки и
-          отдельное ТЗ для виджета менеджера. Страница сделана специально как
-          короткая ссылка для отправки в чат.
-        </p>
+      <header class="hero">
+        <span class="eyebrow">Донуля · amoCRM</span>
+        <h1>ТЗ для Артура и Вити</h1>
+        <p>Одна открытая страница: как сделка ходит по воронке и как виджет помогает менеджеру не упустить клиента.</p>
+        <div class="notice">Версия для согласования · 11 августа 2026</div>
+      </header>
 
+      <nav aria-label="Навигация по ТЗ">
+        <a href="#short">Суть</a>
+        <a href="#artur">Артур · воронка</a>
+        <a href="#vitya">Витя · виджет</a>
+        <a href="#now">Что делаем сейчас</a>
+      </nav>
+
+      <div class="intro" id="short">
+        <strong>Главное правило:</strong> автоматизации «Обнулятора» и Sensei могут сами закрывать старую задачу и создавать новую, когда меняется этап. Поэтому виджет <strong>не привязан к кнопке «закрыл задачу»</strong>. Он всегда получает из amoCRM актуальную очередь и открывает следующую сделку по кнопке «Следующая задача».
+      </div>
+
+      <section id="artur">
+        <span class="tag artur">Для Артура · amoCRM, Обнулятор, Sensei, PBX</span>
+        <h2>1. Логика воронки</h2>
+        <p class="sub">Воронка состоит из шести последовательных этапов. Сделку по этапам двигает только событие: звонок, подпись или оплата.</p>
+
+        <div class="flow" aria-label="Этапы воронки">
+          <div class="step"><span class="n">1</span><b>Новый</b><small>Первый звонок ≤ 5 минут</small></div>
+          <div class="step"><span class="n">2</span><b>Разговариваем</b><small>Диагностика и консультация</small></div>
+          <div class="step"><span class="n">3</span><b>Принимает решение</b><small>Дожим до 72 часов</small></div>
+          <div class="step"><span class="n">4</span><b>Договор подписан</b><small>Ждём оговорённую оплату</small></div>
+          <div class="step"><span class="n">5</span><b>Оплачено 1 000 ₽</b><small>Добираем до первого платежа</small></div>
+          <div class="step"><span class="n">6</span><b>Оплачено</b><small>Передаём в ОС</small></div>
+        </div>
+
+        <h3 style="margin-top:22px">Две кнопки Обнулятора после консультации</h3>
         <div class="grid">
           <article class="card">
-            <div class="pill blue">Для Артура</div>
-            <h2>Логика воронки</h2>
-            <p>
-              Здесь описаны этапы, SLA, горячие события, правила переходов и
-              распределения лидов.
-            </p>
-            <ul class="list">
-              <li>Новый → звонить сейчас</li>
-              <li>В работе → продолжение консультации</li>
-              <li>Принимает решение → дожим и подпись</li>
-              <li>Договор подписан → частичка и оплата</li>
-            </ul>
-            <div class="btnrow">
-              <a class="btn primary" href="https://mashina-maksima-training.viktorianigmat543401.chatgpt.site/funnel-spec">
-                Открыть ТЗ
-              </a>
-            </div>
+            <span class="tag">Подписать договор</span>
+            <p>Менеджер отправляет обычный договор на подпись по СМС. Сделка переходит в «Принимает решение»; фактическая подпись кодом переводит её в «Договор подписан».</p>
           </article>
-
           <article class="card">
-            <div class="pill green">Для Вити</div>
-            <h2>Виджет менеджера</h2>
-            <p>
-              Это экран, на котором сверху видны срочные задачи, касания,
-              сообщения и новые лиды.
-            </p>
-            <ul class="list">
-              <li>Срочно — красный</li>
-              <li>Сегодня — жёлтый</li>
-              <li>Думает — отдельная зона</li>
-              <li>Счётчик лидов, конверсия и эфирное время</li>
-            </ul>
-            <div class="btnrow">
-              <a class="btn primary" href="https://mashina-maksima-training.viktorianigmat543401.chatgpt.site/widget">
-                Открыть виджет
-              </a>
-            </div>
+            <span class="tag">Оплатить сейчас</span>
+            <p>Менеджер отправляет страницу оферты с оплатой. Сделка также переходит в «Принимает решение», но хранит маршрут «Оферта — оплата». Если клиент не смог оплатить, но готов закрепиться договором — менеджер выдаёт обычный договор, без потери истории.</p>
           </article>
         </div>
 
-        <div class="footer">
-          Если нужно, можно переслать только эту страницу:
-          <br />
-          <strong>https://viktoria004.github.io/tz-artur-viti/</strong>
+        <div class="table-wrap" style="margin-top:18px">
+          <table>
+            <thead><tr><th>Этап</th><th>Как попадает</th><th>Что делает менеджер</th><th>Срок / результат</th></tr></thead>
+            <tbody>
+              <tr><td>1. Новый</td><td>Лид распределён системой.</td><td>Нажать «Позвонить» в PBX и провести первый звонок.</td><td>Звонок начать ≤ 5 минут. Напоминание через 2 минуты; если звонок не начат к 5-й минуте — лид передаётся следующему свободному менеджеру. Пропущенный лид всё равно считается в лимите 8.</td></tr>
+              <tr><td>2. Разговариваем</td><td>Первый контакт состоялся.</td><td>Провести диагностику и полноценную консультацию; выбрать: «Подписать договор» или «Оплатить сейчас».</td><td>Цель — не оставить клиента без следующего понятного шага. Если полноценную консультацию не довели и клиент не отвечает — направить в НДЗ, а не в тёплый пул.</td></tr>
+              <tr><td>3. Принимает решение</td><td>Отправлена обычная ссылка на договор или оферта-оплата.</td><td><b>Д0:</b> попросить подпись и КИ. <b>Д1:</b> презентовать юридическое заключение, запросить подпись и оплату. <b>Д2:</b> презентовать скидку, запросить подпись и оплату. <b>Д3:</b> получить ясный ответ «да» или «нет».</td><td>72 часа. Есть подпись → этап 4. Есть 1 000 ₽ → этап 5. Есть полный первый платёж 13 500 ₽ → этап 6. Нет подписи и оплаты к окончанию Д3 → тёплый пул. Отказ → закрыть с обязательной причиной.</td></tr>
+              <tr><td>4. Договор подписан</td><td>Клиент подписал договор кодом по СМС.</td><td>Зафиксировать точную дату оплаты и поддерживать контакт до оплаты.</td><td>Клиент закреплён за менеджером подписью. Если менеджер ведёт клиента и есть подтверждённое касание — срок не ограничивается. Если к концу дня обязательное касание не подтверждено — сменить ответственного на другого менеджера.</td></tr>
+              <tr><td>5. Оплачено 1 000 ₽</td><td>Пришла частичная оплата от 1 000 ₽.</td><td>Зафиксировать дату и добрать до первого полного платежа 13 500 ₽.</td><td>Первые 5 дней — ежедневные касания; затем задача раз в 48 часов. Пока касания подтверждаются — клиент остаётся у менеджера. Без обязательного касания к концу дня — новый ответственный.</td></tr>
+              <tr><td>6. Оплачено</td><td>Получено минимум 13 500 ₽.</td><td>Заполнить анкету и передать клиента в отдел сопровождения.</td><td>Передача в ОС ≤ 24 часов. Если полной оплатой клиент не передан за 30 минут — создать срочную задачу.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid" style="margin-top:18px">
+          <article class="card">
+            <h3>Тёплый пул</h3>
+            <p>В тёплом пуле работают стажёры и менеджеры с конверсией ниже 10%. Лид закрепляется за исполнителем <b>на один день</b>. Если за этот день нет подписи договора и нет оплаты — на следующий день лид автоматически передаётся другому стажёру или менеджеру из этой же очереди.</p>
+          </article>
+          <article class="card">
+            <h3>Недозвон и отказ</h3>
+            <p>Если консультация не состоялась, лид идёт в НДЗ: <b>3 звонка + СМС</b>. Отказ закрывается только с обязательной причиной. Нельзя отправлять в тёплый пул клиента, которому не провели консультацию и не назвали условия.</p>
+          </article>
+        </div>
+
+        <h3 style="margin-top:22px">Проверка реального касания</h3>
+        <p class="sub">Закрытие задачи само по себе не считается работой. После любого закрытия система проверяет, было ли касание.</p>
+        <div class="rules">
+          <div class="rule"><b>Разговор</b>Звонок длительностью от 1 минуты + СМС-резюме клиенту.</div>
+          <div class="rule"><b>Недозвон</b>3 попытки звонка + СМС.</div>
+          <div class="rule"><b>Переписка</b>СМС менеджера → ответ клиента → СМС менеджера.</div>
+        </div>
+        <div class="callout"><b>Если задача закрыта, но касание не подтверждено:</b> задача создаётся повторно и поднимается в приоритете. Это продолжается, пока не появится нужный артефакт касания.</div>
+      </section>
+
+      <section id="vitya">
+        <span class="tag vitya">Для Вити · виджет менеджера</span>
+        <h2>2. Что должен делать виджет</h2>
+        <p class="sub">Виджет не заменяет карточку amoCRM и не дублирует текст задачи. Его задача — показать очередь, статус менеджера и открыть нужную сделку в один клик.</p>
+
+        <div class="grid">
+          <article class="card"><h3>Система открывает работу по очереди</h3><p>В виджете есть кнопка <b>«Следующая задача»</b>. Она всегда запрашивает актуальную активную задачу из amoCRM и открывает её сделку. Не использовать заранее сохранённую «следующую» задачу: статус мог измениться Обнулятором или Sensei.</p></article>
+          <article class="card"><h3>Задача остаётся в amoCRM</h3><p>Описание, результат звонка, причина «отложить» и стандартное закрытие остаются внутри привычной задачи amoCRM. В виджете не нужна вторая большая карточка этой же задачи.</p></article>
+        </div>
+
+        <h3 style="margin-top:22px">Три простые очереди</h3>
+        <div class="rules">
+          <div class="rule red"><b>🔥 Сейчас</b>Задачи, которые надо отработать раньше нового лида. Если есть хотя бы одна — менеджер красный, новые лиды не приходят.</div>
+          <div class="rule yellow"><b>🤝 Сегодня</b>Касания и договорённости на сегодня. Если они просрочены — менеджер жёлтый: получает каждый второй положенный новый лид.</div>
+          <div class="rule"><b>🎯 Думает</b>Плановые дожимные касания клиентов на этапе «Принимает решение». Выполняются после «Сейчас», новых лидов и «Сегодня».</div>
+        </div>
+
+        <h3 style="margin-top:22px">Что выводить в верхней полосе виджета</h3>
+        <div class="grid">
+          <article class="card"><h3>Светофор и нагрузка</h3><ul class="list"><li>Красный / жёлтый / зелёный / серый и короткое объяснение причины.</li><li>Портфель: максимум 20 активных клиентов.</li><li>Новые лиды: максимум 8 уникальных лидов в день.</li><li>Консультации: максимум 5 в день.</li></ul></article>
+          <article class="card"><h3>Рабочий день</h3><ul class="list"><li>Срочно / Сегодня / Думает — только число задач, клик открывает список.</li><li>Иконка сообщений: красная, если есть непрочитанное или неотвеченное входящее сообщение.</li><li>Иконки: план дня, результаты, аналитика.</li><li>Эфирное время сегодня: план/факт, план — 240 минут.</li></ul></article>
+          <article class="card"><h3>Новый лид</h3><ul class="list"><li>Показывать таймер: «осталось N минут — начнут поступать лиды».</li><li>При новом лиде показать таймер первого звонка 5 минут.</li><li>На 2-й минуте — уведомление, что звонок нужно начать.</li><li>На 5-й минуте без старта звонка — передать лид другому.</li></ul></article>
+          <article class="card"><h3>Показатели</h3><ul class="list"><li>Сегодня: лиды, консультации, продажи, полные оплаты, конверсия лид → продажа.</li><li>Продажи зелёные, когда менеджер в плане; красные, когда не в плане.</li><li>Рейтинг ИИ и «жизни» менеджера.</li><li>Кнопка аналитики: месяц с 1 числа — план/факт по лидам, консультациям, продажам, выручке, КИ, сохранениям, рекомендациям и доппродуктам.</li></ul></article>
+        </div>
+
+        <h3 style="margin-top:22px">Светофор распределения</h3>
+        <div class="rules">
+          <div class="rule red"><b>🔴 Красный — лиды не поступают</b>Есть «Сейчас» или портфель заполнен (20). Сначала отработать срочные задачи.</div>
+          <div class="rule yellow"><b>🟡 Жёлтый — лиды через раз</b>Есть просроченное «Сегодня». Каждый второй положенный менеджеру лид пропускается, пока не закрыты обязательные касания.</div>
+          <div class="rule green"><b>🟢 Зелёный — лиды идут</b>Нет срочных и просроченных касаний, лимиты не превышены.</div>
+        </div>
+        <div class="callout"><b>Если все менеджеры достигли лимита:</b> лиды не раздавать сверх лимита. Это аварийная очередь и сигнал РОПу: нужен найм, а не повышение лимита.</div>
+
+        <h3 style="margin-top:22px">Старт и завершение смены</h3>
+        <div class="grid">
+          <article class="card"><h3>Начало</h3><p>После окна причины опоздания показать короткий экран подготовки: количество «Сейчас», «Сегодня», «Думает», нагрузку, эфирное время и простое объяснение светофора. Только после «Начать работу» менеджер попадает в распределение.</p></article>
+          <article class="card"><h3>Конец дня</h3><p>Если есть незакрытые обязательные задачи — предупредить. Первый день подряд: разговор с РОПом и утром нет новых лидов до отработки. Второй день подряд: автоматически начислить штраф 500 ₽ дополнительно.</p></article>
         </div>
       </section>
+
+      <section id="now">
+        <span class="tag">Реализуемо сейчас, без ИИ-анализа текста</span>
+        <h2>3. Какие задачи уже можно считать «Сейчас»</h2>
+        <p class="sub">Ниже — только события, которые можно увидеть через этап, вебхук страницы, PBX, оплату или поле даты. Анализ смысла переписки и «риск срыва» — отдельная следующая версия с ИИ.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Срочная задача</th><th>Триггер</th><th>Когда закрыть</th></tr></thead>
+            <tbody>
+              <tr><td>Помочь подписать договор</td><td>Клиент открыл страницу договора, но не подписал; либо согласие на процедуру не подписано за 4 часа и задача пришла от МОС.</td><td>Подпись получена, подтверждённое касание или зафиксирована точная дата возвращения.</td></tr>
+              <tr><td>Помочь с оплатой</td><td>Клиент открыл страницу оферты/оплаты и оплаты нет. Срабатывать через 1 минуту после открытия.</td><td>Оплата получена, состоялось касание или есть новая точная дата оплаты.</td></tr>
+              <tr><td>Выполнить договорённость</td><td>Наступила точная дата и время звонка, подписи или оплаты.</td><td>Касание состоялось либо клиент выполнил действие.</td></tr>
+              <tr><td>Срок оплаты сорван</td><td>Наступило обещанное время оплаты, но платёж не пришёл.</td><td>Оплата получена, есть новая точная дата или отказ.</td></tr>
+              <tr><td>Перезвонить клиенту</td><td>Пропущенный входящий звонок от клиента в PBX.</td><td>Подтверждённое касание.</td></tr>
+              <tr><td>Передать оплаченного клиента в ОС</td><td>Полная оплата получена, а передача в ОС не подтверждена за 30 минут.</td><td>Передача подтверждена.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout"><b>Не добавлять в «Сейчас» до появления ИИ:</b> «клиент готов оплатить», «риск срыва», «риск неоплаты» по смыслу сообщения. Пока ИИ не читает переписку, это нельзя определять надёжно. Вместо этого используем факт: дата оплаты сорвана, открыта страница, пропущен звонок, нет ответа на входящее.</div>
+      </section>
+
+      <section>
+        <span class="tag">Техническая связка</span>
+        <h2>4. Что должно храниться в amoCRM</h2>
+        <p class="sub">Ниже минимальные данные, чтобы правила работали предсказуемо.</p>
+        <div class="grid">
+          <article class="card"><h3>Поля сделки</h3><ul class="list"><li>Маршрут: «Договор» / «Оферта — оплата».</li><li>Дата и время следующего действия.</li><li>Дата и сумма обещанной оплаты.</li><li>Подпись по СМС: да/нет, время, ID события.</li><li>Первый платёж: сумма, дата, ID платежа.</li><li>Касание подтверждено: да/нет, тип, время.</li></ul></article>
+          <article class="card"><h3>События для виджета</h3><ul class="list"><li>Назначение лида и время назначения.</li><li>Старт исходящего звонка в PBX.</li><li>Пропущенный входящий звонок.</li><li>Открытие страницы договора / оферты / оплаты.</li><li>Подпись, частичная и полная оплата.</li><li>Передача в ОС и смена ответственного.</li></ul></article>
+        </div>
+        <div class="mini" style="margin-top:16px">Подпись кодом по СМС требует отдельной проверки юриста: текст оферты/договора, правила простой электронной подписи, идентификация клиента и неизменяемый журнал события должны быть утверждены до запуска.</div>
+      </section>
+
+      <footer class="footer">Публичная версия ТЗ · ссылка предназначена для Артура, Вити и команды внедрения.</footer>
     </main>
   </body>
 </html>
